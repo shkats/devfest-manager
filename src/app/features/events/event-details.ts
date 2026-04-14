@@ -1,4 +1,4 @@
-import { Component, inject, input } from '@angular/core';
+import { Component, inject, input, ChangeDetectionStrategy } from '@angular/core';
 import { EventsService } from '../../core/events.service';
 import { CommonModule, DatePipe } from '@angular/common';
 import { RouterLink } from '@angular/router';
@@ -10,6 +10,7 @@ import { CartStore } from '../../core/cart.store';
 @Component({
   selector: 'app-event-details',
   imports: [CommonModule, RouterLink, DatePipe, TabGroup, Tab],
+  changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div class="bg-white rounded-xl shadow-lg p-8 max-w-4xl mx-auto min-h-[600px]">
       <!-- Back Button -->
