@@ -1,6 +1,6 @@
 import { Component, inject, input, ChangeDetectionStrategy } from '@angular/core';
 import { EventsService } from '../../core/events.service';
-import { CommonModule, DatePipe } from '@angular/common';
+import { CommonModule, DatePipe, NgOptimizedImage } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { CartService } from '../../core/cart.service';
 import { TabGroup } from '../../shared/tabs/tab-group';
@@ -9,7 +9,7 @@ import { CartStore } from '../../core/cart.store';
 
 @Component({
   selector: 'app-event-details',
-  imports: [CommonModule, RouterLink, DatePipe, TabGroup, Tab],
+  imports: [CommonModule, RouterLink, DatePipe, TabGroup, Tab, NgOptimizedImage],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div class="bg-white rounded-xl shadow-lg p-8 max-w-4xl mx-auto min-h-[600px]">
@@ -40,6 +40,7 @@ import { CartStore } from '../../core/cart.store';
             <p class="text-gray-500 text-lg">
               {{ event.date | date: 'fullDate' }} • {{ event.location }}
             </p>
+            
 
             <app-tab-group>
               <app-tab label="Overview">
@@ -52,7 +53,7 @@ import { CartStore } from '../../core/cart.store';
                 <!-- Move our Defer block from Mod 1 here! -->
                 @defer (hydrate on viewport) {
                   <div class="h-64 bg-gray-200 rounded relative">
-                    <img src="/images/venue-map.png" class="object-cover w-full h-full" />
+                    <img [ngSrc]="'/images/venue-map.png'" width="500" height="400" class="object-cover w-full h-full" />
                   </div>
                 } @placeholder {
                   <div class="h-64 bg-gray-100 flex items-center justify-center">
@@ -88,7 +89,7 @@ import { CartStore } from '../../core/cart.store';
           <div class="bg-gray-50 p-6 rounded-xl h-fit border border-gray-100">
             <div class="h-48 bg-gray-200 rounded mb-4 overflow-hidden">
               <!-- We will optimize this image in Day 2 -->
-              <img [src]="event.image" class="w-full h-full object-cover" />
+              <img [ngSrc]="event.image" height="200" width="200" priority class="w-full h-full object-cover" />
             </div>
 
             @defer (hydrate on interaction) {
